@@ -1,5 +1,5 @@
 ---
-abstract: 'Dist::Zilla configuration the way DOHERTY does it'
+abstract: 'configure Dist::Zilla like DOHERTY'
 author:
   - 'Mike Doherty <doherty@cpan.org>'
 build_requires:
@@ -26,7 +26,7 @@ requires:
   Dist::Zilla::Plugin::Git::NextVersion: 0
   Dist::Zilla::Plugin::Git::Tag: 0
   Dist::Zilla::Plugin::InstallGuide: 0
-  Dist::Zilla::Plugin::LocalInstall: 0
+  Dist::Zilla::Plugin::InstallRelease: 0.002
   Dist::Zilla::Plugin::MinimumPerl: 0
   Dist::Zilla::Plugin::NextRelease: 0
   Dist::Zilla::Plugin::PkgVersion: 0
@@ -39,10 +39,9 @@ requires:
   Moose::Autobox: 0
   Pod::Weaver::Section::BugsAndLimitations: 1.102670
   autodie: 2.00
-  diagnostics: 0
   namespace::autoclean: 0.09
   perl: 5.006
 resources:
   bugtracker: http://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY/issues
   repository: http://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY
-version: 0.001
+version: 0.002

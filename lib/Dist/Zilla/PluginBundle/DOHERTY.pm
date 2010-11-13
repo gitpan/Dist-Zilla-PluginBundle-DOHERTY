@@ -1,13 +1,12 @@
 use strict;
 use warnings;
-use diagnostics;
+#use diagnostics;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.001';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.002';
 }
-# ABSTRACT: Dist::Zilla configuration the way DOHERTY does it
-# ENCODING: utf-8
+# ABSTRACT: configure Dist::Zilla like DOHERTY
 
 
 # Dependencies
@@ -33,7 +32,7 @@ use Dist::Zilla::Plugin::CheckChangesHasContent         qw();
 use Dist::Zilla::Plugin::Git::Commit                    qw();
 use Dist::Zilla::Plugin::Git::Tag                       qw();
 use Dist::Zilla::PluginBundle::TestingMania             qw();
-use Dist::Zilla::Plugin::LocalInstall                   qw();
+use Dist::Zilla::Plugin::InstallRelease     0.002       qw();
 
 use Pod::Weaver::Section::BugsAndLimitations 1.102670   qw(); # To read from D::Z::P::Bugtracker
 
@@ -132,7 +131,7 @@ sub configure {
         ( $self->fake_release ? 'FakeRelease' : 'UploadToCPAN' ),
 
         # After release
-        'LocalInstall',
+        'InstallRelease',
         'Git::Commit',
         [ 'Git::Tag' => { tag_format => $self->tag_format } ],
         [ 'NextRelease' => { filename => 'CHANGES', format => '%-9v %{yyyy-MM-dd}d' } ],
@@ -140,8 +139,8 @@ sub configure {
 
     $self->add_bundle(
         'TestingMania' => {
-            add => $self->add_tests,
-            skip => $self->skip_tests,
+            add => $self->payload->{'add_tests'},
+            skip => $self->payload->{'skip_tests'},
         }
     );
 }
@@ -159,11 +158,11 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Dist::Zilla::PluginBundle::DOHERTY - Dist::Zilla configuration the way DOHERTY does it
+Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

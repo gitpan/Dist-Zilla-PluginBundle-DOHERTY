@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker 6.31;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Dist::Zilla configuration the way DOHERTY does it',
+  'ABSTRACT' => 'configure Dist::Zilla like DOHERTY',
   'AUTHOR' => 'Mike Doherty <doherty@cpan.org>',
   'BUILD_REQUIRES' => {
     'File::Find' => '0',
@@ -34,7 +34,7 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::Git::NextVersion' => '0',
     'Dist::Zilla::Plugin::Git::Tag' => '0',
     'Dist::Zilla::Plugin::InstallGuide' => '0',
-    'Dist::Zilla::Plugin::LocalInstall' => '0',
+    'Dist::Zilla::Plugin::InstallRelease' => '0.002',
     'Dist::Zilla::Plugin::MinimumPerl' => '0',
     'Dist::Zilla::Plugin::NextRelease' => '0',
     'Dist::Zilla::Plugin::PkgVersion' => '0',
@@ -47,10 +47,9 @@ my %WriteMakefileArgs = (
     'Moose::Autobox' => '0',
     'Pod::Weaver::Section::BugsAndLimitations' => '1.102670',
     'autodie' => '2.00',
-    'diagnostics' => '0',
     'namespace::autoclean' => '0.09'
   },
-  'VERSION' => '0.001',
+  'VERSION' => '0.002',
   'test' => {
     'TESTS' => 't/*.t'
   }
