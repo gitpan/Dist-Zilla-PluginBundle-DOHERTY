@@ -1,5 +1,9 @@
 Revision history for Perl module Dist-Zilla-PluginBundle-DOHERTY
 
+0.003     2010-11-24
+    * Require Pod::Weaver::PluginBundle::DOHERTY
+    * Allow README to be dirty - it always will be since we copy from build
+
 0.002     2010-11-13
     * Fix passing skip_tests and add_tests to Dist::Zilla::PluginBundle::TestingMania
 
