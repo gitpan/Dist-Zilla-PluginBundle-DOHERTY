@@ -28,7 +28,8 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::AutoPrereqs' => '0',
     'Dist::Zilla::Plugin::Bugtracker' => '1.102670',
     'Dist::Zilla::Plugin::CheckChangesHasContent' => '0',
-    'Dist::Zilla::Plugin::CopyReadmeFromBuild' => '0',
+    'Dist::Zilla::Plugin::CheckExtraTests' => '0',
+    'Dist::Zilla::Plugin::CopyReadmeFromBuild' => '0.0015',
     'Dist::Zilla::Plugin::Git::Check' => '0',
     'Dist::Zilla::Plugin::Git::Commit' => '0',
     'Dist::Zilla::Plugin::Git::NextVersion' => '0',
@@ -45,12 +46,12 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Role::PluginBundle::Easy' => '0',
     'Moose' => '0.99',
     'Moose::Autobox' => '0',
-    'Pod::Weaver::PluginBundle::DOHERTY' => '0.001',
+    'Pod::Weaver::PluginBundle::DOHERTY' => '0.002',
     'Pod::Weaver::Section::BugsAndLimitations' => '1.102670',
     'autodie' => '2.00',
     'namespace::autoclean' => '0.09'
   },
-  'VERSION' => '0.003',
+  'VERSION' => '0.004',
   'test' => {
     'TESTS' => 't/*.t'
   }

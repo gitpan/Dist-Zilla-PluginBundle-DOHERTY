@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.003';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.004';
 }
 # ABSTRACT: configure Dist::Zilla like DOHERTY
 
@@ -24,7 +24,7 @@ use Dist::Zilla::Plugin::Bugtracker            1.102670 qw(); # to set bugtracke
 use Dist::Zilla::Plugin::PodWeaver                      qw();
 use Dist::Zilla::Plugin::InstallGuide                   qw();
 use Dist::Zilla::Plugin::ReadmeFromPod                  qw();
-use Dist::Zilla::Plugin::CopyReadmeFromBuild            qw();
+use Dist::Zilla::Plugin::CopyReadmeFromBuild     0.0015 qw(); # to avoid circular dependencies
 use Dist::Zilla::Plugin::Git::NextVersion               qw();
 use Dist::Zilla::Plugin::PkgVersion                     qw();
 use Dist::Zilla::Plugin::NextRelease                    qw();
@@ -33,9 +33,10 @@ use Dist::Zilla::Plugin::Git::Commit                    qw();
 use Dist::Zilla::Plugin::Git::Tag                       qw();
 use Dist::Zilla::PluginBundle::TestingMania             qw();
 use Dist::Zilla::Plugin::InstallRelease           0.002 qw();
+use Dist::Zilla::Plugin::CheckExtraTests                qw();
 
-use Pod::Weaver::Section::BugsAndLimitations   1.102670 qw(); # To read from D::Z::P::Bugtracker
-use Pod::Weaver::PluginBundle::DOHERTY            0.001 qw();
+use Pod::Weaver::Section::BugsAndLimitations   1.102670 qw(); # to read from D::Z::P::Bugtracker
+use Pod::Weaver::PluginBundle::DOHERTY            0.002 qw();
 
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
@@ -122,19 +123,20 @@ sub configure {
         'Manifest',
 
         # Before release
-        [ 'Git::Check' => { allow_dirty => 'README' } ],
+        [ 'Git::Check' => { changelog => 'CHANGES' } ],
         [ 'CheckChangesHasContent' => { changelog => 'CHANGES' } ],
         'TestRelease',
+        'CheckExtraTests',
         'ConfirmRelease',
 
         # Release
         ( $self->fake_release ? 'FakeRelease' : 'UploadToCPAN' ),
 
         # After release
-        'InstallRelease',
         'CopyReadmeFromBuild',
         'Git::Commit',
         [ 'Git::Tag' => { tag_format => $self->tag_format } ],
+        'InstallRelease',
         [ 'NextRelease' => { filename => 'CHANGES', format => '%-9v %{yyyy-MM-dd}d' } ],
     );
 
@@ -163,7 +165,7 @@ Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -258,7 +260,7 @@ The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
 site near you, or see L<http://search.cpan.org/dist/Dist-Zilla-PluginBundle-DOHERTY/>.
 
-The development version lives at L<http://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY.git>
+The development version lives at L<http://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY>
 and may be cloned from L<git://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY.git>.
 Instead of sending patches, please fork this project using the standard
 git and github infrastructure.
