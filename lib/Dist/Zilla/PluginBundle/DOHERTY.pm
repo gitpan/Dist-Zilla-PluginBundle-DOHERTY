@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.004';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.005';
 }
 # ABSTRACT: configure Dist::Zilla like DOHERTY
 
@@ -165,7 +165,7 @@ Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
