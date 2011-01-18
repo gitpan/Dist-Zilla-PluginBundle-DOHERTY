@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.007';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.008';
 }
 # ABSTRACT: configure Dist::Zilla like DOHERTY
 
@@ -34,7 +34,7 @@ use Dist::Zilla::Plugin::Git::Tag                       qw();
 use Dist::Zilla::PluginBundle::TestingMania             qw();
 use Dist::Zilla::Plugin::InstallRelease           0.002 qw();
 use Dist::Zilla::Plugin::CheckExtraTests                qw();
-use Dist::Zilla::Plugin::GithubUpdate                   qw();
+use Dist::Zilla::Plugin::GithubUpdate              0.03 qw(); # Support for p3rl.org
 use Dist::Zilla::Plugin::Twitter                  0.009 qw();
 
 use Pod::Weaver::Section::BugsAndLimitations   1.102670 qw(); # to read from D::Z::P::Bugtracker
@@ -95,7 +95,9 @@ has twitter => (
     is      => 'ro',
     isa     => 'Bool',
     lazy    => 1,
-    default => sub { $_[0]->payload->{no_twitter} == 1 ? 0 : 1 },
+    default => sub {
+        (defined $_[0]->payload->{no_twitter} and $_[0]->payload->{no_twitter} == 1) ? 0 : 1;
+    },
 );
 
 
@@ -143,7 +145,7 @@ sub configure {
         ( $self->fake_release ? 'FakeRelease' : 'UploadToCPAN' ),
 
         # After release
-        [ 'GithubUpdate' => { cpan => 1 } ],
+        [ 'GithubUpdate' => { cpan => 1, p3rl => 1 } ],
         'CopyReadmeFromBuild',
         'Git::Commit',
         [ 'Git::Tag' => { tag_format => $self->tag_format } ],
@@ -179,7 +181,7 @@ Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 
