@@ -48,4 +48,4 @@ requires:
 resources:
   bugtracker: http://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY/issues
   repository: git://github.com/doherty/Dist-Zilla-PluginBundle-DOHERTY.git
-version: 0.006
+version: 0.007

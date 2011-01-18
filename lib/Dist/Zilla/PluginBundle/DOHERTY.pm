@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.006';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.007';
 }
 # ABSTRACT: configure Dist::Zilla like DOHERTY
 
@@ -133,7 +133,7 @@ sub configure {
         'Manifest',
 
         # Before release
-        [ 'Git::Check' => { changelog => 'CHANGES' } ],
+        [ 'Git::Check' => { changelog => 'CHANGES', allow_dirty => 'README' } ],
         [ 'CheckChangesHasContent' => { changelog => 'CHANGES' } ],
         'TestRelease',
         'CheckExtraTests',
@@ -144,13 +144,15 @@ sub configure {
 
         # After release
         [ 'GithubUpdate' => { cpan => 1 } ],
-        ( $self->twitter ? [ 'Twitter' => { hash_tags => '#perl #cpan' } ] : undef ),
         'CopyReadmeFromBuild',
         'Git::Commit',
         [ 'Git::Tag' => { tag_format => $self->tag_format } ],
         'InstallRelease',
         [ 'NextRelease' => { filename => 'CHANGES', format => '%-9v %{yyyy-MM-dd}d' } ],
     );
+    $self->add_plugins(
+        [ 'Twitter' => { hash_tags => '#perl #cpan' } ],
+    ) if $self->twitter;
 
     $self->add_bundle(
         'TestingMania' => {
@@ -177,7 +179,7 @@ Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 
