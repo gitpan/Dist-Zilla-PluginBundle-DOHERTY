@@ -21,7 +21,7 @@ my %WriteMakefileArgs = (
   },
   'DISTNAME' => 'Dist-Zilla-PluginBundle-DOHERTY',
   'EXE_FILES' => [],
-  'LICENSE' => 'gpl',
+  'LICENSE' => 'perl',
   'NAME' => 'Dist::Zilla::PluginBundle::DOHERTY',
   'PREREQ_PM' => {
     'Dist::Zilla' => '4.102341',
@@ -34,6 +34,7 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::Git::Commit' => '0',
     'Dist::Zilla::Plugin::Git::NextVersion' => '0',
     'Dist::Zilla::Plugin::Git::Tag' => '0',
+    'Dist::Zilla::Plugin::GithubUpdate' => '0',
     'Dist::Zilla::Plugin::InstallGuide' => '0',
     'Dist::Zilla::Plugin::InstallRelease' => '0.002',
     'Dist::Zilla::Plugin::MinimumPerl' => '0',
@@ -42,6 +43,7 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::PodWeaver' => '0',
     'Dist::Zilla::Plugin::ReadmeFromPod' => '0',
     'Dist::Zilla::Plugin::Repository' => '0.13',
+    'Dist::Zilla::Plugin::Twitter' => '0.009',
     'Dist::Zilla::PluginBundle::TestingMania' => '0',
     'Dist::Zilla::Role::PluginBundle::Easy' => '0',
     'Moose' => '0.99',
@@ -51,7 +53,7 @@ my %WriteMakefileArgs = (
     'autodie' => '2.00',
     'namespace::autoclean' => '0.09'
   },
-  'VERSION' => '0.005',
+  'VERSION' => '0.006',
   'test' => {
     'TESTS' => 't/*.t'
   }

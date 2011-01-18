@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::PluginBundle::DOHERTY;
 BEGIN {
-  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.005';
+  $Dist::Zilla::PluginBundle::DOHERTY::VERSION = '0.006';
 }
 # ABSTRACT: configure Dist::Zilla like DOHERTY
 
@@ -34,6 +34,8 @@ use Dist::Zilla::Plugin::Git::Tag                       qw();
 use Dist::Zilla::PluginBundle::TestingMania             qw();
 use Dist::Zilla::Plugin::InstallRelease           0.002 qw();
 use Dist::Zilla::Plugin::CheckExtraTests                qw();
+use Dist::Zilla::Plugin::GithubUpdate                   qw();
+use Dist::Zilla::Plugin::Twitter                  0.009 qw();
 
 use Pod::Weaver::Section::BugsAndLimitations   1.102670 qw(); # to read from D::Z::P::Bugtracker
 use Pod::Weaver::PluginBundle::DOHERTY            0.002 qw();
@@ -89,6 +91,14 @@ has version_regexp => (
 );
 
 
+has twitter => (
+    is      => 'ro',
+    isa     => 'Bool',
+    lazy    => 1,
+    default => sub { $_[0]->payload->{no_twitter} == 1 ? 0 : 1 },
+);
+
+
 sub configure {
     my $self = shift;
 
@@ -133,6 +143,8 @@ sub configure {
         ( $self->fake_release ? 'FakeRelease' : 'UploadToCPAN' ),
 
         # After release
+        [ 'GithubUpdate' => { cpan => 1 } ],
+        ( $self->twitter ? [ 'Twitter' => { hash_tags => '#perl #cpan' } ] : undef ),
         'CopyReadmeFromBuild',
         'Git::Commit',
         [ 'Git::Tag' => { tag_format => $self->tag_format } ],
@@ -165,7 +177,7 @@ Dist::Zilla::PluginBundle::DOHERTY - configure Dist::Zilla like DOHERTY
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
@@ -203,6 +215,8 @@ a L<Dist::Zilla> configuration like:
     [CheckChangesHasContent]
     changelog = CHANGES
 
+    [Twitter]       ; config in ~/.netrc
+    [GithubUpdate]  ; config in ~/.gitconfig
     [Git::Commit]
     [Git::Tag]
 
@@ -246,6 +260,10 @@ passed to C<L<Git::Tag|Dist::Zilla::Plugin::Git::Tag>>.
 C<version_regex> specifies a regexp to find the version number part of
 a git release tag. This is passed to C<L<Git::NextVersion|Dist::Zilla::Plugin::Git::NextVersion>>.
 
+=item *
+
+C<no_twitter> says that releases of this module shouldn't be tweeted.
+
 =back
 
 =head1 SEE ALSO
@@ -278,11 +296,10 @@ Mike Doherty <doherty@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2010 by Mike Doherty.
+This software is copyright (c) 2010 by Mike Doherty.
 
-This is free software, licensed under:
-
-  The GNU General Public License, Version 3, June 2007
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
