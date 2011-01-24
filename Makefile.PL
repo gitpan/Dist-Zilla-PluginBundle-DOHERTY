@@ -43,17 +43,18 @@ my %WriteMakefileArgs = (
     'Dist::Zilla::Plugin::PodWeaver' => '0',
     'Dist::Zilla::Plugin::ReadmeFromPod' => '0',
     'Dist::Zilla::Plugin::Repository' => '0.13',
-    'Dist::Zilla::Plugin::Twitter' => '0.009',
+    'Dist::Zilla::Plugin::Twitter' => '0.010',
     'Dist::Zilla::PluginBundle::TestingMania' => '0',
     'Dist::Zilla::Role::PluginBundle::Easy' => '0',
     'Moose' => '0.99',
     'Moose::Autobox' => '0',
     'Pod::Weaver::PluginBundle::DOHERTY' => '0.002',
     'Pod::Weaver::Section::BugsAndLimitations' => '1.102670',
+    'WWW::Shorten::IsGd' => '0',
     'autodie' => '2.00',
     'namespace::autoclean' => '0.09'
   },
-  'VERSION' => '0.008',
+  'VERSION' => '0.009',
   'test' => {
     'TESTS' => 't/*.t'
   }
